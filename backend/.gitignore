@@ -1,2 +1,4 @@
+# Python directorys and files
+
 venv/
-pychache_/
+__pychache_/
