@@ -1,0 +1,6 @@
+# Python directorys and files
+venv/
+__pychache_/
+
+# Git
+.gitignore
