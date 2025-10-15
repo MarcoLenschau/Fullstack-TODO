@@ -1,14 +1,38 @@
-from flask import Flask, request
-from flask_cors import CORS
+from config import db, app, request, jsonify, datetime
+from task import Task
 
-app = Flask(__name__)
-CORS(app, {"origins": "http://localhost:4200"})
-tasks = []
+with app.app_context():
+    db.create_all()
+
+def postData():
+    data = request.get_json()
+    if not data:
+        return jsonify({"status": 404})
+    newTask = Task(title=data["title"])
+    db.session.add(newTask)
+    db.session.commit()
+    return jsonify({"message": "Task created"})
+
+def getData():
+    tasks = []
+    for task in Task.query.all():
+        task = {"id": task.id, "title": task.title} 
+        tasks.append(task)
+    return jsonify(tasks)
 
 @app.route("/tasks", methods=["GET", "POST"])
 def taskRoute():
     if request.method == 'POST':
-        tasks.append(request.get_json())
-        return tasks
+        return postData()
     else:
-        return tasks
+        return getData()
+
+@app.route("/tasks/<id>", methods=["DELETE"])
+def deleteTask(id):
+    tasks = Task.query.all()
+    if len(tasks) > int(id) or len(tasks) == 0:
+         return jsonify({"status": 404})
+    task = Task.query.get(id)
+    db.session.delete(task)
+    db.session.commit()       
+    return jsonify({"message": f"Task {id} deleted"})
