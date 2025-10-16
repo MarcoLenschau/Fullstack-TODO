@@ -1,2 +1,3 @@
-# Files for work
+# Files and directories to ignore
 push.sh
+app/
