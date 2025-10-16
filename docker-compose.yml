@@ -3,6 +3,9 @@ services:
     build: ./backend/
     ports:
       - "8000:5000"
+    volumes:
+      - ./app:/app/instance:Z
+
   frontend:
     build: ./frontend/
     ports:

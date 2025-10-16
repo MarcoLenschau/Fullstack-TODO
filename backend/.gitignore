@@ -1,4 +1,7 @@
 # Python directorys and files
-
 venv/
-__pychache_/
+__pycache__/
+
+#SQLAlchemy
+instance/
+instance/*

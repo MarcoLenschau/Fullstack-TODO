@@ -2,28 +2,28 @@ import { Component, inject } from '@angular/core';
 import { Api } from '../services/api/api';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AddTaskDialog } from "../dialogs/add-task-dialog/add-task-dialog";
 
 @Component({
   selector: 'app-main',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AddTaskDialog],
   templateUrl: './main.html',
   styleUrl: './main.scss'
 })
 export class Main {
   api = inject(Api)
   tasks: any = [];
+  isDialogOpen = false;
 
   constructor() {
-    this.api.getData().subscribe(tasks => this.tasks = tasks)
+    this.api.getData().subscribe(tasks => this.tasks = tasks);
   }
 
-  onSubmit(task: any) {
-    task ? this.addTask(task) : "";
+  openDialog() {
+    this.isDialogOpen = true;
   }
 
-  addTask(task: any) {
-    this.api.postData({ 
-      title: task 
-    });
+  closeDialog() {
+    this.isDialogOpen = false;
   }
 }
