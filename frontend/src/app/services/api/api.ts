@@ -16,4 +16,8 @@ export class Api {
   postData(payload: any) {
     return this.http.post(`${this.apiUrl}/tasks`, payload);
   }
+
+  deleteData(id: any) {
+    return this.http.delete(`${this.apiUrl}/tasks/${id}`);
+  }
 }

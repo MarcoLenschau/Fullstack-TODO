@@ -28,9 +28,10 @@ main {
 
 .task {
     display: flex;
-    justify-content: space-between;
-    width: 150px;
-    padding: 48px;
+    align-items: center;
+    flex-direction: column;
+    width: 250px;
+    height: 150px;
     border-radius: 24px;
     background-color: white;
     >span:first-child {
@@ -38,5 +39,12 @@ main {
     }
     >span {
         font-size: 22px;
+    }
+    >img {
+        position: relative;
+        bottom: -46px;
+        right: -95px;
+        height: 36px;
+        width: 36px;
     }
 }

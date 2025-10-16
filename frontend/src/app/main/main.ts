@@ -26,4 +26,11 @@ export class Main {
   closeDialog() {
     this.isDialogOpen = false;
   }
+
+  removeTask(id: any) {
+    this.api.deleteData(id).subscribe({
+      next: () => console.log('Task deleted'),
+      error: (err) => console.error(err)
+    });
+  }
 }
