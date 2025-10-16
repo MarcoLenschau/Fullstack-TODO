@@ -1,0 +1,29 @@
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    >section {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        width: 80vw;
+        >h2 {
+            display: flex;
+            justify-content: center;
+        }
+        >table {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-left: 12px;
+            >tr {
+                display: flex;
+                justify-content: space-around;
+                >td:first-child {
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
