@@ -1,4 +1,4 @@
-from config import db, app, request, jsonify, datetime
+from config import db, app, request, jsonify
 from task import Task
 
 with app.app_context():
@@ -36,3 +36,6 @@ def deleteTask(id):
     db.session.delete(task)
     db.session.commit()       
     return jsonify({"message": f"Task {id} deleted"})
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=False)

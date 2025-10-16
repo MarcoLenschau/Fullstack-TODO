@@ -1,12 +1,12 @@
-<main>
-    <ul>
-      <li *ngFor="let task of tasks">Title: {{ task.title }}</li>
-    </ul>
-
-    <form (ngSubmit)="onSubmit(taskInput.value)">
-      <input type="text" #taskInput placeholder="Neue Aufgabe">
-      <button type="submit">Add</button>
-    </form>
-
-    <button>Remove</button>
+<main >
+  <p *ngIf="!isDialogOpen">
+    <span *ngFor="let task of tasks" class="task">
+      <span>Title:</span>
+      <span>{{ task.title }}</span>
+    </span>
+  </p>
+  <button (click)="openDialog();">
+    <img [src]="isDialogOpen ? 'assets/img/trash.png' : 'assets/img/plus.png'" [alt]="isDialogOpen ? 'trash-icon' : 'add-icon'">
+  </button>
 </main>
+<app-add-task-dialog *ngIf="isDialogOpen"></app-add-task-dialog>

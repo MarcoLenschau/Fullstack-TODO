@@ -1,0 +1,7 @@
+<form (ngSubmit)="onSubmit(taskInput.value)">
+    <section>
+        <input type="text" #taskInput placeholder="Title of new task" required>
+        <input type="text" #taskDescriptionInput placeholder="Description of new task" required>
+    </section>
+    <button type="submit">Add Task</button>
+</form>

@@ -6,7 +6,7 @@ COPY . .
 
 RUN npm install \
     npm install -g @angular/cli \
-    ng build --base-href="/"
+    ng build --base-href="./"
 
 FROM nginx:alpine
 
