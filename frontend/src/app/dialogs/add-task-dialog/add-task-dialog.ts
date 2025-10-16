@@ -8,14 +8,14 @@ import { Component, Input } from '@angular/core';
 })
 export class AddTaskDialog {
   @Input() api: any;
-  
-  onSubmit(task: any) {
-    task ? this.addTask(task) : "";
-  }
-
+    
   addTask(task: any) {
-    this.api.postData({ 
-      title: task 
+    this.api.postData({title: task }).subscribe({
+      next: (response: any) => {
+        console.log('Task added successfully:', response);
+        // Optionally, you can add code here to close the dialog or reset the form
+      },
+      error: (err: any) => console.error('Error adding task:', err)
     });
   }
 }

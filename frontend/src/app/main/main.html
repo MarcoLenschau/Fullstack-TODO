@@ -9,4 +9,4 @@
     <img [src]="isDialogOpen ? 'assets/img/trash.png' : 'assets/img/plus.png'" [alt]="isDialogOpen ? 'trash-icon' : 'add-icon'">
   </button>
 </main>
-<app-add-task-dialog *ngIf="isDialogOpen"></app-add-task-dialog>
+<app-add-task-dialog *ngIf="isDialogOpen" [api]="api"></app-add-task-dialog>

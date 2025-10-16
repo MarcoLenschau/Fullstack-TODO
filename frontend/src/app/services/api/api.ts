@@ -14,10 +14,6 @@ export class Api {
   }
 
   postData(payload: any) {
-    this.http.post(`${this.apiUrl}/tasks/`, payload)
-      .subscribe({
-        next: (response) => console.log('Erfolgreich gesendet:', response),
-        error: (err) => console.error('Fehler:', err)
-      });
+    return this.http.post(`${this.apiUrl}/tasks`, payload);
   }
 }
