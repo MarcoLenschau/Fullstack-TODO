@@ -1,12 +1,12 @@
-<main >
-  <p *ngIf="!isDialogOpen">
+<main>
+  <section *ngIf="!isDialogOpen" [class.scrollable]="tasks.length > 5">
     <span *ngFor="let task of tasks" class="task">
       <h3>{{ task.title }}</h3>
-      <img src="assets/img/plus.png" (click)="removeTask(task.id)" alt="remove-icon">
+      <img src="assets/img/trash.svg" (click)="removeTask(task.id)" alt="remove-icon">
     </span>
-  </p>
+  </section>
   <button (click)="openDialog();">
-    <img [src]="isDialogOpen ? 'assets/img/trash.png' : 'assets/img/plus.png'" [alt]="isDialogOpen ? 'trash-icon' : 'add-icon'">
+    <img [src]="isDialogOpen ? 'assets/img/trash.svg' : 'assets/img/add.svg'" [alt]="isDialogOpen ? 'trash-icon' : 'add-icon'">
   </button>
 </main>
 <app-add-task-dialog *ngIf="isDialogOpen" [api]="api"></app-add-task-dialog>
