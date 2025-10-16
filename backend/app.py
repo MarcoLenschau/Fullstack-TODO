@@ -8,7 +8,7 @@ def postData():
     data = request.get_json()
     if not data:
         return jsonify({"status": 404})
-    newTask = Task(title=data["title"])
+    newTask = Task(title=data["title"], description=data.get("description"))
     db.session.add(newTask)
     db.session.commit()
     return jsonify({"message": "Task created"})
@@ -29,13 +29,13 @@ def taskRoute():
 
 @app.route("/tasks/<id>", methods=["DELETE"])
 def deleteTask(id):
-    tasks = Task.query.all()
-    if len(tasks) > int(id) or len(tasks) == 0:
-         return jsonify({"status": 404})
-    task = Task.query.get(id)
-    db.session.delete(task)
-    db.session.commit()       
-    return jsonify({"message": f"Task {id} deleted"})
+    try:
+        task = Task.query.get(id)
+        db.session.delete(task)
+        db.session.commit()
+        return jsonify({"message": f"Task {id} deleted"})
+    except Exception as e:
+        return jsonify({"status": 404})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=False)
