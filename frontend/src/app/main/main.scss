@@ -44,16 +44,19 @@ main {
     >span {
         font-size: 22px;
     }
-    >img {
-        position: relative;
-        bottom: 18px;
-        right: -96px;
-        height: 26px;
-        width: 32px;
-        cursor: pointer;
-        &:hover {
-            transform: scale(1.5);
+    >div {
+        display: flex;
+        justify-content: space-around;
+        gap: 120px;
+        margin-top: -8px;   
+        width: 100%;
+        >img {
+            height: 28px;
+            &:hover {
+                transform: scale(1.5);
+            }
         }
+
     }
 }
 

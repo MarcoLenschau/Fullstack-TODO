@@ -6,10 +6,22 @@ main {
         display: flex;
         flex-direction: column;
         background-color: white;
-        width: 80vw;
-        >h2 {
+        width: 400px;
+        height: 400px;
+        >div {
             display: flex;
+            align-items: center;
             justify-content: center;
+            height: 75px;
+            >img {
+                position: relative;
+                right: 225px;
+                height: 32px;
+            }
+            >h2 {
+                display: flex;
+                justify-content: center;
+            }
         }
         >table {
             display: flex;

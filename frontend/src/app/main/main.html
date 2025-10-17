@@ -1,13 +1,16 @@
 <main>
-  <section *ngIf="!isDialogOpen && !isDetailDialogOpen" [class.scrollable]="tasks.length > 5">
+  <section *ngIf="!isDialogOpen" [class.scrollable]="tasks.length > 5">
     <span *ngFor="let task of tasks" (click)="openDetailDialog(task)" class="task">
       <h3>{{ task.title }}</h3>
-      <img src="assets/img/trash.svg" (click)="removeTask(task.id, $event)" alt="remove-icon">
+      <div>
+        <img src="/assets/img/edit.svg" (click)="toggleEditDialog($event, task)" alt="edit-icon">
+        <img src="/assets/img/trash.svg" (click)="removeTask(task.id, $event)" alt="remove-icon">
+      </div>
     </span>
   </section>
   <span *ngIf="errorMessage" class="error-message">{{ errorMessage }}</span>
-  <button (click)="openDialog();">
-    <img [src]="isDialogOpen ? 'assets/img/trash.svg' : 'assets/img/add.svg'" [alt]="isDialogOpen ? 'trash-icon' : 'add-icon'">
-  </button>
+    <button (click)="toggleDialog();">
+      <img [src]="isDialogOpen ? '/assets/img/trash.svg' : '/assets/img/add.svg'" [alt]="isDialogOpen ? 'trash-icon' : 'add-icon'">
+    </button>
 </main>
-<app-add-task-dialog *ngIf="isDialogOpen" [api]="api"></app-add-task-dialog>
+<app-add-task-dialog *ngIf="isDialogOpen" [api]="api" [modus]="modus" [currentTask]="currentTask"></app-add-task-dialog>

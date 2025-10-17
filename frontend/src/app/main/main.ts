@@ -15,31 +15,31 @@ import { DetailTaskDialog } from '../dialogs/detail-task-dialog/detail-task-dial
 export class Main {
   api = inject(Api)
   tasks: any = [];
+  currentTask: any;
   isDialogOpen = false;
-  isDetailDialogOpen = false;
   errorMessage = '';
   dialog = inject(MatDialog);
+  modus: "add" | "edit" = "add";
 
   constructor() {
     this.api.getData().subscribe(tasks => this.tasks = tasks);
   }
 
-  openDialog() {
-    this.isDialogOpen = true;
+  toggleDialog() {
+    this.isDialogOpen = !this.isDialogOpen;
+    this.modus = "add";
   }
 
-  closeDialog() {
-    this.isDialogOpen = false;
+  toggleEditDialog(e: Event, task: any) {
+    e.stopPropagation();
+    this.currentTask = task;
+    this.modus = "edit";
+    this.isDialogOpen = !this.isDialogOpen;
   }
 
   openDetailDialog(task: any) {
     const dialogRef = this.dialog.open(DetailTaskDialog);
     dialogRef.componentInstance.task = task;
-    this.isDetailDialogOpen = true;
-  }
-
-  closeDetailDialog() {
-    this.isDetailDialogOpen = false;
   }
 
   removeTask(id: any, event: Event) {

@@ -1,14 +1,14 @@
-import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject, Input } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-detail-task-dialog',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './detail-task-dialog.html',
   styleUrl: './detail-task-dialog.scss'
 })
 export class DetailTaskDialog {
   @Input() task: any;
-  ngOnInit() {
-    console.log(this.task);
-  }
+  public dialogRef = inject(MatDialogRef<DetailTaskDialog>);
 }

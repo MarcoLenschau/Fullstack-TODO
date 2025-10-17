@@ -1,11 +1,10 @@
 <main>
     <section>
-        <h2>Information</h2>
-        <table>
-            <tr>
-                <td>Title:</td>
-                <td>{{task.title}}</td>
-            </tr>
+        <div>
+            <h2>{{task.title}}</h2>
+            <img src="./assets/img/back.svg" (click)="dialogRef.close()">
+        </div>
+        <table *ngIf="task.description">
             <tr>
                 <td>Description:</td>
                 <td>{{task.description}}</td>
