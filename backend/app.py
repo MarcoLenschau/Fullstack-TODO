@@ -1,8 +1,11 @@
+import os
 from config import app, request
 from data import Data
 from swagger import swagger_bp, SWAGGER_URL, API_SPEC_PATH, API_URL, send_from_directory
-data = Data()
+from dotenv import load_dotenv
 
+load_dotenv()
+data = Data()
 
 app.register_blueprint(swagger_bp, url_prefix=SWAGGER_URL)
 
@@ -25,4 +28,4 @@ def deleteTask(id):
         return data.deleteData(id)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=False)
+    app.run(host=os.getenv("IP_ADDRESS", "127.0.0.1"), port=os.getenv("PORT", 5000), debug=False)
