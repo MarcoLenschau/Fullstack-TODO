@@ -48,6 +48,8 @@ export class Main {
       if (response.status == 404) {
         setTimeout(() => { this.errorMessage = ''; }, 5000);
         this.errorMessage = "Error deleting task";
+      } else {
+        this.tasks = this.tasks.filter((task: any) => task.id !== id);
       }
     });
   }
