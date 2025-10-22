@@ -42,9 +42,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DefaultMessage'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                $ref: '#/components/schemas/SuccessMessage'
+              example:
+                message: Task created
         '500':
           $ref: '#/components/responses/InternalError'
   /tasks/{id}:
@@ -61,9 +61,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DefaultMessage'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                $ref: '#/components/schemas/SuccessMessage'
+              example:
+                message: Task {id} deleted
         '500':
           $ref: '#/components/responses/InternalError'
     put:
@@ -83,11 +83,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DefaultMessage'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                $ref: '#/components/schemas/SuccessMessage'
+              example:
+                message: Task {id} updated
         '500':
           $ref: '#/components/responses/InternalError'
 components:
@@ -133,32 +131,35 @@ components:
     TaskUpdate:
       allOf:
         - $ref: '#/components/schemas/TaskCreate'
-    DefaultMessage:
+    SuccessMessage:
       type: object
       properties:
         message:
           type: string
-          example: Task 1 updated
+      required:
+        - message
+    ErrorMessage:
+      type: object
+      properties:
         status:
           type: integer
-          nullable: true
-          example: 404
+          example: 500
   responses:
     BadRequest:
       description: Invalid payload supplied.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/DefaultMessage'
+            $ref: '#/components/schemas/ErrorMessage'
     NotFound:
       description: Task with the provided identifier was not found.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/DefaultMessage'
+            $ref: '#/components/schemas/ErrorMessage'
     InternalError:
       description: Unexpected server error.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/DefaultMessage'
+            $ref: '#/components/schemas/ErrorMessage'
