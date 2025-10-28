@@ -1,7 +1,13 @@
 <form>
     <section>
-        <input type="text" #taskInput placeholder="Title of new task" required>
-        <input type="text" #taskDescriptionInput placeholder="Description of new task" required>
+        <input type="text" #taskTitle placeholder="Title of new task" [value]="currentTask?.title" required>
+        <textarea #taskDescription placeholder="Description of new task" [value]="currentTask?.description"></textarea>
+        <div>
+            <button (click)="modus === 'add' ? addTask(taskTitle.value, taskDescription.value) : editTask(taskTitle.value, taskDescription.value)">
+                {{ modus === 'add' ? 'Add Task' : 'Edit Task' }}
+            </button>
+        </div>
+
     </section>
-    <button (click)="addTask(taskInput.value)">Add Task</button>
+
 </form>

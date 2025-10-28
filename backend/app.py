@@ -1,41 +1,31 @@
-from config import db, app, request, jsonify
-from task import Task
+import os
+from config import app, request
+from data import Data
+from swagger import swagger_bp, SWAGGER_URL, API_SPEC_PATH, API_URL, send_from_directory
+from dotenv import load_dotenv
 
-with app.app_context():
-    db.create_all()
+load_dotenv()
+data = Data()
 
-def postData():
-    data = request.get_json()
-    if not data:
-        return jsonify({"status": 404})
-    newTask = Task(title=data["title"])
-    db.session.add(newTask)
-    db.session.commit()
-    return jsonify({"message": "Task created"})
+app.register_blueprint(swagger_bp, url_prefix=SWAGGER_URL)
 
-def getData():
-    tasks = []
-    for task in Task.query.all():
-        task = {"id": task.id, "title": task.title} 
-        tasks.append(task)
-    return jsonify(tasks)
+@app.route(API_URL)
+def swagger_spec():
+    return send_from_directory(".", API_SPEC_PATH, mimetype="application/yaml")
 
 @app.route("/tasks", methods=["GET", "POST"])
 def taskRoute():
     if request.method == 'POST':
-        return postData()
+        return data.postData()
     else:
-        return getData()
+        return data.getData()
 
-@app.route("/tasks/<id>", methods=["DELETE"])
+@app.route("/tasks/<id>", methods=["DELETE", "PUT"])
 def deleteTask(id):
-    tasks = Task.query.all()
-    if len(tasks) > int(id) or len(tasks) == 0:
-         return jsonify({"status": 404})
-    task = Task.query.get(id)
-    db.session.delete(task)
-    db.session.commit()       
-    return jsonify({"message": f"Task {id} deleted"})
+    if request.method == 'PUT':
+        return data.putData(id)
+    else:
+        return data.deleteData(id)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=False)
+    app.run(host=os.getenv("IP_ADDRESS", "127.0.0.1"), port=os.getenv("PORT", 5000), debug=False)

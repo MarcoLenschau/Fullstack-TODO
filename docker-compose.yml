@@ -3,6 +3,9 @@ services:
     build: ./backend/
     ports:
       - "8000:5000"
+    networks:
+      isolated_network:
+        ipv4_address: 172.30.0.2
     volumes:
       - ./app:/app/instance:Z
 
@@ -10,3 +13,14 @@ services:
     build: ./frontend/
     ports:
       - "80:80"
+    networks:
+      isolated_network:
+        ipv4_address: 172.30.0.3
+    depends_on:
+      - backend
+networks:
+  isolated_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/29

@@ -8,14 +8,20 @@ import { Component, Input } from '@angular/core';
 })
 export class AddTaskDialog {
   @Input() api: any;
-    
-  addTask(task: any) {
-    this.api.postData({title: task }).subscribe({
-      next: (response: any) => {
-        console.log('Task added successfully:', response);
-        // Optionally, you can add code here to close the dialog or reset the form
-      },
+  @Input() modus: "add" | "edit" = "add"; 
+  @Input() currentTask: any = null;
+  
+  addTask(taskTitle: any, taskDescription: any = "") {
+    const payload = {title: taskTitle, description: taskDescription};
+    this.api.postData(payload).subscribe({
       error: (err: any) => console.error('Error adding task:', err)
+    });
+  }
+
+  editTask(taskTitle: any, taskDescription: any = "") {
+    const payload = {title: taskTitle, description: taskDescription};
+    this.api.updateData(this.currentTask.id, payload).subscribe({
+      error: (err: any) => console.error('Error editing task:', err)
     });
   }
 }
