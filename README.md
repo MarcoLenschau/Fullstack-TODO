@@ -79,3 +79,4 @@ Fullstack-TODO/
 - `GET /tasks` - Retrieve all tasks
 - `POST /tasks` - Add a new task
 - `DELETE /tasks/<id>` - Delete a task
+- `PUT /tasks/<id>` -  Update task
