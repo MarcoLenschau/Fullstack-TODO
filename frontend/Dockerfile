@@ -5,12 +5,11 @@ WORKDIR /app
 COPY . .
 
 RUN npm install \
-    npm install -g @angular/cli \
-    ng build --base-href="./"
+    npm run build
 
 FROM nginx:alpine
 
-COPY --from=build /app/dist/TODO/browser/ /usr/share/nginx/html
+COPY --from=build /app/dist/TODO/browser /usr/share/nginx/html
 
 EXPOSE 80
 
